@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Volunteer Deletion</title>
+  </head>
+  <body>
+    <h2>Delete Record</h2>
+    <div class="row">
+      <form id="deleteForm">
+        <h4>Enter ID</h4>
+        <input type="text" id="inputID" name="inputID" required />
+        <br />
+        <button type="submit">Delete Data</button>
+      </form>
+    </div>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-app.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyAHzhGdUTKscun9FAifCFTFWYJ53-palZg",
+        authDomain: "lab6db-e9dd6.firebaseapp.com",
+        projectId: "lab6db-e9dd6",
+        storageBucket: "lab6db-e9dd6.appspot.com",
+        messagingSenderId: "1055396649743",
+        appId: "1:1055396649743:web:5f9743f88cd40438133c7a",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+
+      import {
+        getDatabase,
+        ref,
+        remove,
+      } from "https://www.gstatic.com/firebasejs/10.12.1/firebase-database.js";
+
+      const db = getDatabase();
+
+      document
+        .getElementById("deleteForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          var inputID = document.querySelector("#inputID").value;
+
+          remove(ref(db, "people/" + inputID))
+            .then(() => {
+              alert("Data deleted successfully!");
+            })
+            .catch((error) => {
+              alert(error);
+            });
+        });
+    </script>
+  </body>
+</html>
